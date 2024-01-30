@@ -13,6 +13,7 @@
         <RepositoryType>git</RepositoryType>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageTags>eventsourcing</PackageTags>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageReleaseNotes>Initial alpha release</PackageReleaseNotes>
     </PropertyGroup>
     <ItemGroup>
