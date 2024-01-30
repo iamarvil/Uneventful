@@ -1,4 +1,4 @@
-# Just a simple Event Store library
+# Just a simple Event Sourcing library
 
 **Uneventful** library is a simple and lightweight event sourcing library that provides an opinionated way of storing and retrieving events to an Event Store. This repository includes working CosmosDB and InMemory (for testing purposes) IEventStore implementations, a simple Aggregate Repository for building and mutating aggregates from a stream of events, an EventProcessor abstract class to simplify event processing, and a simple IMemoryCache implementation for ISnapshotStore.
 

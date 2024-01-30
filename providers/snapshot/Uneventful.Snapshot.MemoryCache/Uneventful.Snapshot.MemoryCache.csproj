@@ -4,6 +4,17 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <Version>0.1.0-alpha</Version>
+        <Title>Uneventful MemoryCache Snapshot Provider</Title>
+        <Authors>iamarvil</Authors>
+        <Description>Uneventful MemoryCache Snapshot Provider</Description>
+        <PackageProjectUrl>https://github.com/iamarvil/Uneventful</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/iamarvil/Uneventful</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageTags>eventsourcing</PackageTags>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageReleaseNotes>Initial alpha release</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,6 +23,13 @@
 
     <ItemGroup>
       <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="8.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="README.md">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
     </ItemGroup>
 
 </Project>

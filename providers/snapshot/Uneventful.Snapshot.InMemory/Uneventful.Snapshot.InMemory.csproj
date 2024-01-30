@@ -4,10 +4,27 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <Version>0.1.0-alpha</Version>
+        <Title>Uneventful InMemory Snapshot Provider</Title>
+        <Authors>iamarvil</Authors>
+        <Description>Uneventful InMemory Snapshot Provider for Testing Only</Description>
+        <PackageProjectUrl>https://github.com/iamarvil/Uneventful</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/iamarvil/Uneventful</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageTags>eventsourcing</PackageTags>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageReleaseNotes>Initial alpha release</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\src\Uneventful.EventStore\Uneventful.EventStore.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <None Include="README.md">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+    </ItemGroup>
 </Project>
