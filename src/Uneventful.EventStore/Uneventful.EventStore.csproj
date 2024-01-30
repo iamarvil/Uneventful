@@ -4,6 +4,16 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <Version>0.1.0-alpha</Version>
+        <Title>Uneventful</Title>
+        <Authors>iamarvil</Authors>
+        <Description>An event sourcing library for dotnet</Description>
+        <PackageProjectUrl>https://github.com/iamarvil/Uneventful</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/iamarvil/Uneventful</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageTags>eventsourcing</PackageTags>
+        <PackageReleaseNotes>Initial alpha release</PackageReleaseNotes>
     </PropertyGroup>
     <ItemGroup>
         <InternalsVisibleTo Include="Uneventful.EventStore.Tests" />
