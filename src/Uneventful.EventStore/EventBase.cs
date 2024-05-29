@@ -1,4 +1,4 @@
 ﻿namespace Uneventful.EventStore;
 
-public class EventBase {
+public record EventBase {
 }

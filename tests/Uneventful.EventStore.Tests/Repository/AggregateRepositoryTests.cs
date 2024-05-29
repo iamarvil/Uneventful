@@ -142,13 +142,8 @@ public class AggregateRepositoryTests {
             Numbers.Add(@event.Number);
         }
 
-        public class ItemCreated(string id) : EventBase {
-            public string Id { get; } = id;
-        }
+        public record ItemCreated(string Id) : EventBase;
 
-        public class ItemNumberAdded(string id, int number) : EventBase {
-            public string Id { get; } = id;
-            public int Number { get; } = number;
-        }
+        public record ItemNumberAdded(string Id, int Number) : EventBase;
     }
 }

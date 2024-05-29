@@ -2,7 +2,7 @@
 
 namespace ToDoApp.Cosmos.Domain.Events;
 
-public class TodoItemCreated : EventBase {
+public record TodoItemCreated : EventBase {
     public Guid Id { get; }
     public string Title { get; }
     public long On { get; }
@@ -14,7 +14,7 @@ public class TodoItemCreated : EventBase {
     }
 }
 
-public class TodoItemTitleChanged : EventBase {
+public record  TodoItemTitleChanged : EventBase {
     public Guid Id { get; }
     public string Title { get; }
     public long On { get; }
@@ -30,7 +30,7 @@ public class TodoItemTitleChanged : EventBase {
     }
 }
 
-public class TodoItemCompleted : EventBase {
+public record  TodoItemCompleted : EventBase {
     public Guid Id { get; }
     public long On { get; }
 
@@ -43,7 +43,7 @@ public class TodoItemCompleted : EventBase {
     }
 }
 
-public class TodoItemUnCompleted : EventBase {
+public record TodoItemUnCompleted : EventBase {
     public Guid Id { get; }
     public long On { get; }
 
@@ -56,7 +56,7 @@ public class TodoItemUnCompleted : EventBase {
     }
 }
 
-public class TodoItemRemoved : EventBase {
+public record TodoItemRemoved : EventBase {
     public Guid Id { get; }
     public long On { get; }
 
