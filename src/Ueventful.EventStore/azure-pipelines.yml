@@ -5,8 +5,11 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
+  major: 0
+  minor: $[counter(variables['major'], 0)]
+  patch: $[counter(variables['minor'], 1)]
   buildConfiguration: 'Release'
-  projectName: 'Uneventful.EventStore/Uneventful.EventStore.csproj'
+  project: 'src/Uneventful.EventStore/Uneventful.EventStore.csproj'
 
 steps:
 
@@ -14,8 +17,11 @@ steps:
   displayName: 'dotnet pack'
   inputs:
     command: 'pack'
-    packagesToPack: 'src/Uneventful.EventStore/Uneventful.EventStore.csproj'
-    versioningScheme: 'byBuildNumber'
+    packagesToPack: '$(project)'
+    versioningScheme: 'byPrereleaseNumber'
+    majorVersion: $(major)
+    minorVersion: $(minor)
+    patchVersion: $(patch)
 
 - task: PublishBuildArtifacts@1
   inputs:
