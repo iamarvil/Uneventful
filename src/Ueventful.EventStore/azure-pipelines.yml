@@ -9,14 +9,15 @@ variables:
   projectName: 'Uneventful.EventStore/Uneventful.EventStore.csproj'
 
 steps:
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    projects: 'src/Uneventful.EventStore/Uneventful.EventStore.csproj'
-    arguments: '--configuration $(buildConfiguration)'
-    workingDirectory: $(System.DefaultWorkingDirectory)
+#- task: DotNetCoreCLI@2
+#  inputs:
+#    command: 'build'
+#    projects: 'src/Uneventful.EventStore/Uneventful.EventStore.csproj'
+#    arguments: '--configuration $(buildConfiguration)'
+#    workingDirectory: $(System.DefaultWorkingDirectory)
 
 - task: DotNetCoreCLI@2
+  displayName: 'Publish'
   inputs:
     command: 'publish'
     projects: 'src/Uneventful.EventStore/Uneventful.EventStore.csproj'
