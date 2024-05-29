@@ -18,14 +18,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\src\Uneventful.EventStore\Uneventful.EventStore.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
         <None Include="README.md">
             <Pack>True</Pack>
             <PackagePath>\</PackagePath>
         </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Uneventful.EventStore" Version="0.0.4-CI-20240529-192519" />
     </ItemGroup>
 
 </Project>

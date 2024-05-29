@@ -19,10 +19,7 @@
 
     <ItemGroup>
       <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.37.1" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\..\..\src\Uneventful.EventStore\Uneventful.EventStore.csproj" />
+      <PackageReference Include="Uneventful.EventStore" Version="0.0.4-CI-20240529-192519" />
     </ItemGroup>
 
     <ItemGroup>
