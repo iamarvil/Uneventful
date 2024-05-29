@@ -12,13 +12,13 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    projects: 'src/$(projectName)'
+    projects: 'src/Uneventful.EventStore/Uneventful.EventStore.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
-    projects: 'src/$(projectName)'
+    projects: 'src/Uneventful.EventStore/Uneventful.EventStore.csproj'
     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
