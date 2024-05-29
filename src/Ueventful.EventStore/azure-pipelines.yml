@@ -20,9 +20,10 @@ steps:
   displayName: 'Publish'
   inputs:
     command: 'publish'
+    publishWebProjects: false
     projects: 'src/Uneventful.EventStore/Uneventful.EventStore.csproj'
     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-    workingDirectory: $(System.DefaultWorkingDirectory)
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
 
 - task: PublishBuildArtifacts@1
   inputs:
