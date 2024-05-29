@@ -6,7 +6,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  projectName: 'Uneventful.EventStore'
+  projectName: 'Uneventful.EventStore/*.csproj'
 
 steps:
 - task: DotNetCoreCLI@2
