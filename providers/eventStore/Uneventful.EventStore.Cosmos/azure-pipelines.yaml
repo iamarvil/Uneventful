@@ -1,5 +1,10 @@
 trigger:
-  - main
+  branches:
+    include:
+      - main 
+  paths:
+    include:
+      - providers/eventStore/Uneventful.EventStore.Cosmos/*
 
 pool:
   vmImage: ubuntu-latest

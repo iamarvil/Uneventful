@@ -1,5 +1,10 @@
 trigger:
-- main
+    branches:
+        include:
+        - main 
+    paths:
+        include:
+        - src/Uneventful.EventStore/*
 
 pool:
   vmImage: ubuntu-latest
