@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Uneventful.EventStore.Snapshot;
+namespace Uneventful.Repository.Snapshot;
 
 public class SnapshotStoreBuilder {
     public IServiceCollection Services { get; }

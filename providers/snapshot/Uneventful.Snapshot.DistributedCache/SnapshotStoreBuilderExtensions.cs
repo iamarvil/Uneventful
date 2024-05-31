@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.DependencyInjection;
-using Uneventful.EventStore.Snapshot;
+using Uneventful.Repository.Snapshot;
 
 namespace Uneventful.Snapshot.DistributedCache;
 

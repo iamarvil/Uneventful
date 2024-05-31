@@ -8,7 +8,7 @@ using TodoApp.Cosmos.EventListener;
 using TodoApp.Cosmos.State;
 using TodoApp.Cosmos.Utilities;
 using Uneventful.EventStore.InMemory;
-using Uneventful.EventStore.Repository;
+using Uneventful.Repository;
 using Uneventful.Snapshot.InMemory;
 
 namespace TodoApp.Cosmos.Tests.EndpointTests;

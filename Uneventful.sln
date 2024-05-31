@@ -30,6 +30,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.Cosmos", "examples\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.Cosmos.Tests", "examples\TodoApp.Cosmos\TodoApp.Cosmos.Tests\TodoApp.Cosmos.Tests.csproj", "{BF83EB46-3AAE-444D-9399-76DFA409DB01}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uneventful.CodeGenerator", "src\Uneventful.CodeGenerator\Uneventful.CodeGenerator.csproj", "{C7CF7145-CA34-4A7D-9333-DA5EACC8B0A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uneventful.Repository", "src\Uneventful.Repository\Uneventful.Repository.csproj", "{6BD69719-7B58-40EE-81B3-0B4AB44AE03F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +76,14 @@ Global
 		{BF83EB46-3AAE-444D-9399-76DFA409DB01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF83EB46-3AAE-444D-9399-76DFA409DB01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF83EB46-3AAE-444D-9399-76DFA409DB01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7CF7145-CA34-4A7D-9333-DA5EACC8B0A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7CF7145-CA34-4A7D-9333-DA5EACC8B0A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7CF7145-CA34-4A7D-9333-DA5EACC8B0A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7CF7145-CA34-4A7D-9333-DA5EACC8B0A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BD69719-7B58-40EE-81B3-0B4AB44AE03F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BD69719-7B58-40EE-81B3-0B4AB44AE03F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BD69719-7B58-40EE-81B3-0B4AB44AE03F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BD69719-7B58-40EE-81B3-0B4AB44AE03F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D963D88B-DDB7-4337-91FA-AD9F8E15AFF6} = {6B9CF58A-83BA-4E9D-936D-18B30F635F1A}

@@ -1,6 +1,7 @@
 ﻿using Uneventful.EventStore;
-using Uneventful.EventStore.Snapshot;
-using ToDoApp.Cosmos.Domain.Events;
+using Uneventful.Repository;
+using Uneventful.Repository.Snapshot;
+using static ToDoApp.Cosmos.Domain.Events.TodoEvents;
 
 namespace TodoApp.Cosmos.Domain.Aggregates;
 

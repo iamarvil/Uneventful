@@ -26,6 +26,7 @@
       <ProjectReference Include="..\..\providers\eventStore\Uneventful.EventStore.InMemory\Uneventful.EventStore.InMemory.csproj" />
       <ProjectReference Include="..\..\providers\snapshot\Uneventful.Snapshot.InMemory\Uneventful.Snapshot.InMemory.csproj" />
       <ProjectReference Include="..\..\src\Uneventful.EventStore\Uneventful.EventStore.csproj" />
+      <ProjectReference Include="..\..\src\Uneventful.Repository\Uneventful.Repository.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,0 +1,32 @@
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - src/*
+      - providers/*
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  major: 0
+  minor: 1
+  patch: $[counter(variables['minor'], 0)]
+  buildConfiguration: 'Release'
+  version: $(major).$(minor).$(patch)
+
+steps:
+  - task: DotNetCoreCLI@2
+    displayName: 'dotnet pack'
+    inputs:
+      command: 'pack'
+      packagesToPack: '**/*.csproj;!examples/**/*.csproj'
+      versioningScheme: 'byEnvVar'
+      versionEnvVar: 'version'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'drop'

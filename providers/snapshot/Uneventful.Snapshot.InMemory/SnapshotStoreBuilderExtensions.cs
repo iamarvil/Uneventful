@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Uneventful.EventStore.Snapshot;
+using Uneventful.Repository.Snapshot;
 
 namespace Uneventful.Snapshot.InMemory;
 

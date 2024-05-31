@@ -20,6 +20,8 @@
       <ProjectReference Include="..\..\..\providers\EventStore\Uneventful.EventStore.Cosmos\Uneventful.EventStore.Cosmos.csproj" />
       <ProjectReference Include="..\..\..\providers\snapshot\Uneventful.Snapshot.MemoryCache\Uneventful.Snapshot.MemoryCache.csproj" />
       <ProjectReference Include="..\..\..\src\Uneventful.EventStore\Uneventful.EventStore.csproj" />
+      <ProjectReference Include="..\..\..\src\Uneventful.Repository\Uneventful.Repository.csproj" />
+      <ProjectReference Include="..\..\..\src\Uneventful.CodeGenerator\Uneventful.CodeGenerator.csproj"  OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     </ItemGroup>
 
 </Project>

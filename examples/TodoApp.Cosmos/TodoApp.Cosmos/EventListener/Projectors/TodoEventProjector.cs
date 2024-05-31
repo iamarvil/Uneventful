@@ -1,6 +1,7 @@
 ﻿using ToDoApp.Cosmos.Domain.Events;
 using TodoApp.Cosmos.State;
 using Uneventful.EventStore;
+using static ToDoApp.Cosmos.Domain.Events.TodoEvents;
 
 namespace TodoApp.Cosmos.EventListener.Projectors;
 

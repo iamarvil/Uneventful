@@ -1,11 +1,12 @@
 ﻿using System.Text.Json.Serialization;
+using Uneventful.EventStore;
 
-namespace Uneventful.EventStore;
+namespace Uneventful.Repository;
 
 public abstract class EventSourced {
     public abstract string StreamId { get; }
     private readonly List<EventBase> _changes = [];
-    public long Version { get; internal set; }
+    public long Version { get; set; }
     private readonly Dictionary<string, Action<EventBase>> _eventHandlers = new();
     protected void RegisterHandler<T>(Action<T> handler) where T : EventBase {
         var type = typeof(T);
@@ -19,9 +20,9 @@ public abstract class EventSourced {
 
     public async Task Load(IAsyncEnumerable<EventWrapper<EventBase>> events) {
         await foreach (var @event in events) {
-            if (!_eventHandlers.ContainsKey(@event.EventType)) continue;
+            if (!_eventHandlers.TryGetValue(@event.EventType, out var handler)) continue;
             try {
-                if (@event.Payload is { } payload) _eventHandlers[@event.EventType].Invoke(payload);
+                if (@event.Payload is { } payload) handler.Invoke(payload);
                 Version = @event.Version;
             } catch (Exception ex) {
                 // todo: create a load exception of sorts
@@ -32,6 +33,6 @@ public abstract class EventSourced {
     }
 
     [JsonIgnore]
-    internal EventBase[] Changes => _changes.ToArray();
-    internal void ClearChanges() => _changes.Clear();
+    public EventBase[] Changes => _changes.ToArray();
+    public void ClearChanges() => _changes.Clear();
 }

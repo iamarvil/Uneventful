@@ -1,6 +1,7 @@
-using Uneventful.EventStore.Snapshot;
+using Uneventful.EventStore;
+using Uneventful.Repository.Snapshot;
 
-namespace Uneventful.EventStore.Repository;
+namespace Uneventful.Repository;
 
 public class AggregateRepositoryBuilder {
     private IEventStore? _eventStore;

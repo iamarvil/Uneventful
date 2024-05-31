@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Caching.Memory;
+using TodoApp.Cosmos;
 using TodoApp.Cosmos.Endpoints.TodoEndpoints;
 using TodoApp.Cosmos.EventListener;
 using TodoApp.Cosmos.Options;
@@ -6,7 +6,7 @@ using TodoApp.Cosmos.State;
 using TodoApp.Cosmos.Utilities;
 using Uneventful.EventStore;
 using Uneventful.EventStore.Cosmos;
-using Uneventful.Snapshot.MemoryCache;
+using Uneventful.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,28 +28,25 @@ builder.Services.AddOptions<CosmosOptions>()
     .Validate(config => !config.NoLeasesDatabaseNameAndContainerName,
         "Database name and container name for leases must be provided.");
 
+builder.Services.AddMemoryCache();
+
 builder.Services
-    .AddMemoryCache()
     .AddEventStore(
         (eventStoreBuilder) => {
             var eventStoreConfig = builder.Configuration.GetSection(CosmosOptions.CosmosEventStoreConfig);
             eventStoreBuilder
+                .RegisterTodoAppCosmosEvents()
                 .UseCosmos(
                     eventStoreConfig.GetSection("AccountEndPoint").Get<string>()!,
                     eventStoreConfig.GetSection("AccountKey").Get<string>()!,
                     eventStoreConfig.GetSection("DatabaseName").Get<string>()!,
                     eventStoreConfig.GetSection("ContainerName").Get<string>()!
-                )
-                .WithSnapshotStore(snapshotStoreBuilder => {
-                    snapshotStoreBuilder.DefaultSnapshotThreshold = 50;
+                );
+        }
+    )
+    .AddAggregateRepository();
 
-                    snapshotStoreBuilder.UseMemoryCache(
-                        new MemoryCacheEntryOptions {
-                            SlidingExpiration = TimeSpan.FromMinutes(5)
-                        }
-                    );
-                });
-        })
+builder.Services
     .AddSingleton<SetupCosmosDb>()
     .AddSingleton<TodoEventListener>();
 

@@ -1,4 +1,4 @@
-﻿namespace Uneventful.EventStore.Snapshot;
+﻿namespace Uneventful.Repository.Snapshot;
 
 public interface ISnapshotStore {
     public Task SaveSnapshot<T>(T aggregate, CancellationToken cancellationToken = default) where T : EventSourced;

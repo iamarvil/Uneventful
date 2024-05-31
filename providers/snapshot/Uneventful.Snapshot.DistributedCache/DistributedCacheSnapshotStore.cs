@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using Microsoft.Extensions.Caching.Distributed;
-using Uneventful.EventStore;
-using Uneventful.EventStore.Snapshot;
+using Uneventful.Repository;
+using Uneventful.Repository.Snapshot;
 
 namespace Uneventful.Snapshot.DistributedCache;
 

@@ -1,12 +1,15 @@
-﻿
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Uneventful.EventStore.Utilities;
+namespace Uneventful.EventStore.Serialization;
 
 public class EventWrapperConverter : JsonConverter<EventWrapper<EventBase>> {
-    private static readonly List<Type> TypesCache = GetEventTypes();
-   
+    private readonly HashSet<Type> _eventTypes;
+
+    public EventWrapperConverter(HashSet<Type> eventTypes) {
+        _eventTypes = eventTypes;
+    }
+    
     public override EventWrapper<EventBase>? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) {
         Type? type = null;
         string? streamId = null;
@@ -25,7 +28,7 @@ public class EventWrapperConverter : JsonConverter<EventWrapper<EventBase>> {
                     case "eventType": {
                         eventType = reader.GetString();
                         
-                        type = TypesCache.FirstOrDefault(x => x.Name == eventType);
+                        type = _eventTypes.FirstOrDefault(x => x.Name == eventType);
                         break;
                     }
                     case "payload": {
@@ -65,11 +68,11 @@ public class EventWrapperConverter : JsonConverter<EventWrapper<EventBase>> {
                 wrapper = new EventWrapper<EventBase>(
                     streamId,
                     eventType,
-                    JsonSerializer.Deserialize(payload, type, options) as EventBase ?? new EventBase(),
+                    System.Text.Json.JsonSerializer.Deserialize(payload, type, options) as EventBase ?? new EventBase(),
                     timestamp.Value,
                     version.Value
                 ) {
-                    MetaData = metadata != null ? JsonSerializer.Deserialize<EventMetaData>(metadata, options) : null
+                    MetaData = metadata != null ? System.Text.Json.JsonSerializer.Deserialize<EventMetaData>(metadata, options) : null
                 };
             }
                 
@@ -86,23 +89,14 @@ public class EventWrapperConverter : JsonConverter<EventWrapper<EventBase>> {
         writer.WriteString("streamId", value.StreamId);
         writer.WriteString("eventType", value.EventType);
         writer.WritePropertyName("payload");
-        JsonSerializer.Serialize(writer, value.Payload, value.Payload.GetType(), options);
+        System.Text.Json.JsonSerializer.Serialize(writer, value.Payload, value.Payload.GetType(), options);
         writer.WriteNumber("timestamp", value.Timestamp);
         writer.WriteNumber("version", value.Version);
         if (value.MetaData != null) {
             writer.WritePropertyName("metadata");
-            JsonSerializer.Serialize(writer, value.MetaData, value.MetaData.GetType(), options);
+            System.Text.Json.JsonSerializer.Serialize(writer, value.MetaData, value.MetaData.GetType(), options);
         }
 
         writer.WriteEndObject();
-    }
-    
-    private static List<Type> GetEventTypes() {
-        var baseEventType = typeof(EventBase);
-        return AppDomain.CurrentDomain.GetAssemblies()
-            .SelectMany(x => x.GetTypes()
-                .Where(type => type is { IsClass: true, IsAbstract: false } && baseEventType.IsAssignableFrom(type))
-            )
-            .ToList();
     }
 }

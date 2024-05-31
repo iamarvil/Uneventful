@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Uneventful.EventStore.Snapshot;
+namespace Uneventful.Repository.Snapshot;
 
 public interface ISnapshotCapable {
     [JsonIgnore] 

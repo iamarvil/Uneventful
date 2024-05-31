@@ -1,7 +1,7 @@
-﻿using Uneventful.EventStore.Repository;
-using TodoApp.Cosmos.Domain.Aggregates;
+﻿using TodoApp.Cosmos.Domain.Aggregates;
 using TodoApp.Cosmos.Endpoints.TodoEndpoints.Models;
 using TodoApp.Cosmos.State;
+using Uneventful.Repository;
 
 namespace TodoApp.Cosmos.Endpoints.TodoEndpoints;
 

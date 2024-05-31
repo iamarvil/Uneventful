@@ -1,6 +1,5 @@
 ﻿using System.Text.Json;
 using Microsoft.Azure.Cosmos;
-using Uneventful.EventStore.Utilities;
 
 namespace Uneventful.EventStore.Cosmos.Serializer;
 
@@ -9,9 +8,6 @@ public class CosmosEventWrapperSerializer : CosmosSerializer {
 
     public CosmosEventWrapperSerializer(JsonSerializerOptions serializerOptions) {
         _serializerOptions = serializerOptions;
-
-        if (_serializerOptions.Converters.All(x => x.GetType() != typeof(EventWrapperConverter)))
-            _serializerOptions.Converters.Add(new EventWrapperConverter());
     }
     
     public override T FromStream<T>(Stream stream) {
@@ -20,13 +16,13 @@ public class CosmosEventWrapperSerializer : CosmosSerializer {
                 return (T)(object)stream;
             }
 
-            return JsonSerializer.Deserialize<T>(stream, _serializerOptions) ?? throw new NullReferenceException();
+            return System.Text.Json.JsonSerializer.Deserialize<T>(stream, _serializerOptions) ?? throw new NullReferenceException();
         }
     }
 
     public override Stream ToStream<T>(T input) {
         var outputStream = new MemoryStream();
-        JsonSerializer.Serialize<T>(outputStream, input, _serializerOptions);
+        System.Text.Json.JsonSerializer.Serialize<T>(outputStream, input, _serializerOptions);
         outputStream.Position = 0;
         return outputStream;
     }

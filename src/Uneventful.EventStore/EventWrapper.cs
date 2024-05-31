@@ -37,9 +37,9 @@ public class EventWrapper<T> where T : EventBase, new() {
     }
 }
 
-public class EventMetaData {
+public record EventMetaData {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? CausationId { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? CorrelationId { get; init; }
+    public Guid? CorrelationId { get; init; }
 }

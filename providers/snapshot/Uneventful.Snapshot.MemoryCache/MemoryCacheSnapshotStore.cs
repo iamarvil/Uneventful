@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
-using Uneventful.EventStore;
-using Uneventful.EventStore.Snapshot;
+using Uneventful.Repository;
+using Uneventful.Repository.Snapshot;
 
 namespace Uneventful.Snapshot.MemoryCache;
 

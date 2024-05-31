@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
-using Uneventful.EventStore.Snapshot;
+using Uneventful.EventStore;
+using Uneventful.Repository.Snapshot;
 
-namespace Uneventful.EventStore.Repository;
+namespace Uneventful.Repository;
 
 public class AggregateRepository {
     private readonly IEventStore _eventStore;

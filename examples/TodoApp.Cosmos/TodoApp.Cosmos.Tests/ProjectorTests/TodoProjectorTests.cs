@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using ToDoApp.Cosmos.Domain.Events;
 using TodoApp.Cosmos.EventListener.Projectors;
 using TodoApp.Cosmos.State;
 using Uneventful.EventStore;
+using static ToDoApp.Cosmos.Domain.Events.TodoEvents;
 
 namespace TodoApp.Cosmos.Tests.ProjectorTests;
 
