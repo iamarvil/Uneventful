@@ -18,7 +18,6 @@
 
     <ItemGroup>
       <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.37.1" />
-      <PackageReference Include="Uneventful.EventStore" Version="0.0.5-CI-20240529-233825" />
     </ItemGroup>
 
     <ItemGroup>

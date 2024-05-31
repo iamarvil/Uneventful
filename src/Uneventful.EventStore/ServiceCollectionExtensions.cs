@@ -21,7 +21,7 @@ public static class ServiceCollectionExtensions {
             builder.JsonSerializerOptions.Converters.Add(converter);
         }
         
-        services.AddSingleton<IEventStore>(s => builder.EventStore ?? throw new InvalidOperationException("EventStore must be set."));
+        services.AddSingleton<IEventStore>(s => builder.Build());
         
         return services;
     }

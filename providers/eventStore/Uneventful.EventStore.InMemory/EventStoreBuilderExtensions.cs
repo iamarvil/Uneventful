@@ -1,10 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace Uneventful.EventStore.InMemory;
+﻿namespace Uneventful.EventStore.InMemory;
 
 public static class EventStoreBuilderExtensions {
     public static EventStoreBuilder UseInMemory(this EventStoreBuilder builder) {
-        builder.Services.AddSingleton<IEventStore, InMemoryEventStore>();
+        builder.UseEventStore(new InMemoryEventStore());
         return builder;
     }
 }
