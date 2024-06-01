@@ -11,6 +11,8 @@ public class CosmosEventStore : IEventStore, IDisposable {
     };
     private readonly CosmosClient _client;
     private readonly Container _container;
+
+    public CosmosClient Client => _client;
     
     internal CosmosEventStore(CosmosClient client, string databaseName, string containerName) {
         _client = client;

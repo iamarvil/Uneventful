@@ -7,6 +7,7 @@ namespace Uneventful.EventStore;
 public static class ServiceCollectionExtensions {
     public static IServiceCollection AddEventStore(this IServiceCollection services, Action<EventStoreBuilder> configure) {
         var builder = new EventStoreBuilder();
+        
         configure(builder);
         
         var converter = new EventWrapperConverter(builder.RegisteredEventTypes);
@@ -20,8 +21,9 @@ public static class ServiceCollectionExtensions {
         } else {
             builder.JsonSerializerOptions.Converters.Add(converter);
         }
+        var eventStore = builder.Build();
         
-        services.AddSingleton<IEventStore>(s => builder.Build());
+        services.AddSingleton<IEventStore>(s => eventStore);
         
         return services;
     }

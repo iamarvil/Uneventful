@@ -5,7 +5,7 @@ namespace Uneventful.EventStore;
 public class EventStoreBuilder {
     public JsonSerializerOptions? JsonSerializerOptions { get; private set; }
     public HashSet<Type> RegisteredEventTypes { get; } = [];
-    private IEventStore? EventStore { get; set; }
+    private Func<EventStoreBuilder, IEventStore>? EventStore { get; set; }
     
     public EventStoreBuilder ConfigureEventStoreJsonSerializerOptions(Action<JsonSerializerOptions> configure) {
         JsonSerializerOptions = new JsonSerializerOptions();
@@ -19,7 +19,7 @@ public class EventStoreBuilder {
         return this;
     }
     
-    public EventStoreBuilder UseEventStore(IEventStore eventStore) {
+    public EventStoreBuilder UseEventStore(Func<EventStoreBuilder, IEventStore> eventStore) {
         if (EventStore != null) {
             throw new InvalidOperationException("EventStore is already set.");
         }
@@ -32,6 +32,6 @@ public class EventStoreBuilder {
             throw new InvalidOperationException("EventStore must be set.");
         }
 
-        return EventStore;
+        return EventStore.Invoke(this);
     }
 }

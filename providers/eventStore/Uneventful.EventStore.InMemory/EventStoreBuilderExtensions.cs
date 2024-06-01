@@ -2,7 +2,7 @@
 
 public static class EventStoreBuilderExtensions {
     public static EventStoreBuilder UseInMemory(this EventStoreBuilder builder) {
-        builder.UseEventStore(new InMemoryEventStore());
+        builder.UseEventStore((_) => new InMemoryEventStore());
         return builder;
     }
 }

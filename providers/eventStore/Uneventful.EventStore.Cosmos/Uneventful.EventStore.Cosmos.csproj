@@ -31,4 +31,10 @@
       <ProjectReference Include="..\..\..\src\Uneventful.EventStore\Uneventful.EventStore.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="Microsoft.AspNetCore">
+        <HintPath>..\..\..\..\..\..\..\Program Files\dotnet\shared\Microsoft.AspNetCore.App\8.0.6\Microsoft.AspNetCore.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>

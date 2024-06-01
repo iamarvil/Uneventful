@@ -1,3 +1,5 @@
+using Microsoft.Azure.Cosmos;
+using Microsoft.Extensions.Options;
 using TodoApp.Cosmos;
 using TodoApp.Cosmos.Endpoints.TodoEndpoints;
 using TodoApp.Cosmos.EventListener;
@@ -34,20 +36,28 @@ builder.Services
     .AddEventStore(
         (eventStoreBuilder) => {
             var eventStoreConfig = builder.Configuration.GetSection(CosmosOptions.CosmosEventStoreConfig);
-            eventStoreBuilder
-                .RegisterTodoAppCosmosEvents()
-                .UseCosmos(
-                    eventStoreConfig.GetSection("AccountEndPoint").Get<string>()!,
-                    eventStoreConfig.GetSection("AccountKey").Get<string>()!,
-                    eventStoreConfig.GetSection("DatabaseName").Get<string>()!,
-                    eventStoreConfig.GetSection("ContainerName").Get<string>()!
-                );
+            eventStoreBuilder.RegisterTodoAppCosmosEvents();
+            eventStoreBuilder.UseCosmos(
+                eventStoreConfig.GetSection("AccountEndPoint").Get<string>()!,
+                eventStoreConfig.GetSection("AccountKey").Get<string>()!,
+                eventStoreConfig.GetSection("DatabaseName").Get<string>()!,
+                eventStoreConfig.GetSection("ContainerName").Get<string>()!
+            );
         }
     )
     .AddAggregateRepository();
 
 builder.Services
-    .AddSingleton<SetupCosmosDb>()
+    .AddSingleton<CosmosClient>(s => {
+        var eventStore = s.GetRequiredService<IEventStore>();
+        return eventStore.GetCosmosEventStore().Client;
+    })
+    .AddSingleton<SetupCosmosDb>(s => {
+        var cosmosOptions = s.GetRequiredService<IOptions<CosmosOptions>>();
+        var cosmosClient = s.GetRequiredService<CosmosClient>();
+
+        return new SetupCosmosDb(cosmosClient, cosmosOptions);
+    })
     .AddSingleton<TodoEventListener>();
 
 var app = builder.Build();
