@@ -16,7 +16,7 @@ public class EventWrapperConverter : JsonConverter<EventWrapper<EventBase>> {
         long? version = null;
         string? eventType = null;
         string? payload = null;
-        long? timestamp = null;
+        long timestamp = 0;
         string? metadata = null;
         var startDepth = reader.CurrentDepth;
         EventWrapper<EventBase>? wrapper = null;
@@ -64,15 +64,15 @@ public class EventWrapperConverter : JsonConverter<EventWrapper<EventBase>> {
 
             if (reader.TokenType != JsonTokenType.EndObject || reader.CurrentDepth != startDepth) continue;
             
-            if (eventType != null && version != null && streamId != null && type != null && payload != null && timestamp != null) {
+            if (eventType != null && version != null && streamId != null && type != null && payload != null) {
                 wrapper = new EventWrapper<EventBase>(
                     streamId,
                     eventType,
-                    System.Text.Json.JsonSerializer.Deserialize(payload, type, options) as EventBase ?? new EventBase(),
-                    timestamp.Value,
+                    JsonSerializer.Deserialize(payload, type, options) as EventBase ?? new EventBase(),
+                    timestamp,
                     version.Value
                 ) {
-                    MetaData = metadata != null ? System.Text.Json.JsonSerializer.Deserialize<EventMetaData>(metadata, options) : null
+                    MetaData = metadata != null ? JsonSerializer.Deserialize<EventMetaData>(metadata, options) : null
                 };
             }
                 
