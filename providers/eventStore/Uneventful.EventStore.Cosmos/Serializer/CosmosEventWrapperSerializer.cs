@@ -16,13 +16,13 @@ public class CosmosEventWrapperSerializer : CosmosSerializer {
                 return (T)(object)stream;
             }
 
-            return System.Text.Json.JsonSerializer.Deserialize<T>(stream, _serializerOptions) ?? throw new NullReferenceException();
+            return JsonSerializer.Deserialize<T>(stream, _serializerOptions) ?? throw new NullReferenceException();
         }
     }
 
     public override Stream ToStream<T>(T input) {
         var outputStream = new MemoryStream();
-        System.Text.Json.JsonSerializer.Serialize<T>(outputStream, input, _serializerOptions);
+        JsonSerializer.Serialize(outputStream, input, _serializerOptions);
         outputStream.Position = 0;
         return outputStream;
     }

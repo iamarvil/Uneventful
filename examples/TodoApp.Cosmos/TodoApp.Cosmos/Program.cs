@@ -36,7 +36,7 @@ builder.Services
     .AddEventStore(
         (eventStoreBuilder) => {
             var eventStoreConfig = builder.Configuration.GetSection(CosmosOptions.CosmosEventStoreConfig);
-            eventStoreBuilder.RegisterTodoAppCosmosEvents();
+            eventStoreBuilder.RegisterEventTypes(EventTypeRegistry.Events);
             eventStoreBuilder.UseCosmos(
                 eventStoreConfig.GetSection("AccountEndPoint").Get<string>()!,
                 eventStoreConfig.GetSection("AccountKey").Get<string>()!,

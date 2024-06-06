@@ -11,14 +11,8 @@ public static class ServiceCollectionExtensions {
         configure(builder);
         
         var converter = new EventWrapperConverter(builder.RegisteredEventTypes);
-
-        if (builder.JsonSerializerOptions == null) {
-            builder.ConfigureEventStoreJsonSerializerOptions(o => {
-                o.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-                o.PropertyNameCaseInsensitive = true;
-                o.Converters.Add(converter);
-            });
-        } else {
+        
+        if (!builder.JsonSerializerOptions.Converters.Any(x => x is EventWrapperConverter)) {
             builder.JsonSerializerOptions.Converters.Add(converter);
         }
         var eventStore = builder.Build();

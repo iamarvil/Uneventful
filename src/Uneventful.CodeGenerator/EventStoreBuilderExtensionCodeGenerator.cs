@@ -67,7 +67,7 @@ public class EventStoreBuilderExtensionCodeGenerator : ISourceGenerator {
                           namespace {{assemblyName}};
                           
                           public static class EventTypeRegistry {
-                              public static readonly HashSet<Type> Events = [
+                              public static readonly Type[] Events = [
                                 {{string.Join($", {Environment.NewLine}", eventTypes.Select(eventType => $"\t\ttypeof({eventType})"))}}
                               ];
                           }

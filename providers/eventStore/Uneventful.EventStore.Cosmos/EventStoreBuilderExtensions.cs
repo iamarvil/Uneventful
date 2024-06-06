@@ -1,4 +1,5 @@
-﻿using Microsoft.Azure.Cosmos.Fluent;
+﻿using System.Text.Json;
+using Microsoft.Azure.Cosmos.Fluent;
 using Uneventful.EventStore.Cosmos.Serializer;
 using Uneventful.EventStore.Serialization;
 
@@ -7,14 +8,13 @@ namespace Uneventful.EventStore.Cosmos;
 public static class EventStoreBuilderExtensions {
     
     public static EventStoreBuilder UseCosmos(this EventStoreBuilder builder, CosmosClientBuilder clientBuilder, string databaseName, string containerName) {
-
-        return builder.UseEventStore((builder) => {
-            if (builder.JsonSerializerOptions == null || !builder.JsonSerializerOptions.Converters.Any(x => x is EventWrapperConverter)) {
-                throw new InvalidOperationException("EventStoreBuilder must have a JsonSerializerOptions with an EventWrapperConverter.");
-            }
+        builder.JsonSerializerOptions.Converters.Add(new EventWrapperConverter(builder.RegisteredEventTypes, timestampPropertyName: "_ts"));
         
+        var serializer = new CosmosEventWrapperSerializer(builder.JsonSerializerOptions);
+        
+        return builder.UseEventStore(() => {
             var client = clientBuilder
-                .WithCustomSerializer(new CosmosEventWrapperSerializer(builder.JsonSerializerOptions))
+                .WithCustomSerializer(serializer)
                 .Build();
             return new CosmosEventStore(client, databaseName, containerName);
         });

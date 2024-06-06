@@ -94,7 +94,7 @@ public class CosmosEventStore : IEventStore, IDisposable {
 
     public async IAsyncEnumerable<EventWrapper<EventBase>> LoadStream(string streamId, [EnumeratorCancellation] CancellationToken cancellationToken = default) {
         const string sqlQueryText = """
-                                    SELECT e.id, e.streamId, e.version, e.eventType, e.payload, e.timestamp FROM events e
+                                    SELECT e.id, e.streamId, e.version, e.eventType, e.payload, e._ts FROM events e
                                        WHERE e.streamId = @streamId
                                        ORDER BY e.version
                                     """;
@@ -108,7 +108,7 @@ public class CosmosEventStore : IEventStore, IDisposable {
     }
 
     public async IAsyncEnumerable<EventWrapper<EventBase>> LoadStream(string streamId, long fromVersion, long? toVersion = null, [EnumeratorCancellation] CancellationToken cancellationToken = default) {
-        var sqlQueryText = "SELECT DOCUMENTID(e) position, e.streamId, e.version, e.eventType, e.payload, e.timestamp FROM events e"
+        var sqlQueryText = "SELECT DOCUMENTID(e) position, e.streamId, e.version, e.eventType, e.payload, e._ts FROM events e"
                            + " WHERE e.streamId = @streamId"
                            + " AND e.version >= @fromVersion"
                            + (toVersion == null ? string.Empty : " AND e.version <= @toVersion")

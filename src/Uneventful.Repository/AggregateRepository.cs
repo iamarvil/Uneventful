@@ -22,6 +22,10 @@ public class AggregateRepository {
             return;
         }
 
+        metaData ??= new EventMetaData {
+            CorrelationId = Guid.NewGuid()
+        };
+
         var newVersion = await _eventStore.AppendToStream(aggregate.StreamId, aggregate.Changes, aggregate.Version, metaData, cancellationToken);
         aggregate.Version = newVersion;
         aggregate.ClearChanges();
