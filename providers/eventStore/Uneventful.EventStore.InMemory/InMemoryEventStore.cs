@@ -1,4 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
+using Uneventful.EventStore.Exceptions;
 
 namespace Uneventful.EventStore.InMemory;
 
@@ -13,6 +14,11 @@ public class InMemoryEventStore : IEventStore {
             MetaData = metaData
         };
 
+        if (EventStore.TryGetValue(streamId, out var value) && value.ContainsKey(wrapper.Id)) {
+            throw new EventStoreWriteConflictException(
+                $"Failed to append {@event.GetType().Name} event to stream \"{streamId}\". Version {expectedVersion} is outdated."
+            );
+        }
         EventStore[streamId][wrapper.Id] = wrapper;
         Events.Add(wrapper);
         return Task.FromResult(newVersion);
