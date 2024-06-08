@@ -34,15 +34,17 @@ builder.Services.AddMemoryCache();
 
 builder.Services
     .AddEventStore(
+        Constants.DomainName,
         (eventStoreBuilder) => {
             var eventStoreConfig = builder.Configuration.GetSection(CosmosOptions.CosmosEventStoreConfig);
-            eventStoreBuilder.RegisterEventTypes(EventTypeRegistry.Events);
-            eventStoreBuilder.UseCosmos(
-                eventStoreConfig.GetSection("AccountEndPoint").Get<string>()!,
-                eventStoreConfig.GetSection("AccountKey").Get<string>()!,
-                eventStoreConfig.GetSection("DatabaseName").Get<string>()!,
-                eventStoreConfig.GetSection("ContainerName").Get<string>()!
-            );
+            eventStoreBuilder
+                .RegisterTodoAppCosmosEvents(Constants.DomainName)
+                .UseCosmos(
+                    eventStoreConfig.GetSection("AccountEndPoint").Get<string>()!,
+                    eventStoreConfig.GetSection("AccountKey").Get<string>()!,
+                    eventStoreConfig.GetSection("DatabaseName").Get<string>()!,
+                    eventStoreConfig.GetSection("ContainerName").Get<string>()!
+                );
         }
     )
     .AddAggregateRepository();

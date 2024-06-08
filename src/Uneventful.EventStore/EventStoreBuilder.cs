@@ -7,20 +7,36 @@ public class EventStoreBuilder {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         PropertyNameCaseInsensitive = true
     };
-    public HashSet<Type> RegisteredEventTypes { get; } = [];
+    public Dictionary<string, HashSet<Type>> RegisteredEventTypes { get; } = [];
     private Func<IEventStore>? EventStore { get; set; }
     
-    public EventStoreBuilder RegisterEvent<TEvent>() where TEvent : EventBase {
-        RegisteredEventTypes.Add(typeof(TEvent));
+    public string? Domain { get; init; }
+
+    public EventStoreBuilder(string domain) {
+        Domain = domain;
+    }
+    
+    public EventStoreBuilder RegisterEvent<TEvent>(string domain) where TEvent : EventBase {
+        if (RegisteredEventTypes.TryGetValue(domain, out var eventTypes)) {
+            eventTypes.Add(typeof(TEvent));
+        }
+        else {
+            RegisteredEventTypes.Add(domain, [typeof(TEvent)]);
+        }
 
         return this;
     }
     
-    public EventStoreBuilder RegisterEventTypes(Type[] eventTypes) {
+    public EventStoreBuilder RegisterEventTypes(string domain, Type[] eventTypes) {
         foreach (var eventType in eventTypes) {
             if (!eventType.IsAssignableTo(typeof(EventBase))) continue;
             
-            RegisteredEventTypes.Add(eventType);
+            if (RegisteredEventTypes.TryGetValue(domain, out var types)) {
+                types.Add(eventType);
+            }
+            else {
+                RegisteredEventTypes.Add(domain, [eventType]);
+            }
         }
 
         return this;

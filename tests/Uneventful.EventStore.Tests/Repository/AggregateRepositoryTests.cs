@@ -12,7 +12,7 @@ public class AggregateRepositoryTests {
     private readonly InMemorySnapshotStore _snapshotStore;
     
     public AggregateRepositoryTests() {
-        _eventStore = new InMemoryEventStore();
+        _eventStore = new InMemoryEventStore("test");
         _snapshotStore = new InMemorySnapshotStore();
         _repository = new AggregateRepository(_eventStore, _snapshotStore);
     }

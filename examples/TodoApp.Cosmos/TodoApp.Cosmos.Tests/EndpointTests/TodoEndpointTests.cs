@@ -19,7 +19,7 @@ public class TodoEndpointTests {
     private readonly AppState _appState;
 
     public TodoEndpointTests() {
-        var eventStore = new InMemoryEventStore();
+        var eventStore = new InMemoryEventStore("todo");
         var snapshotStore  = new InMemorySnapshotStore();
 
         _repository = new AggregateRepository(eventStore, snapshotStore);

@@ -9,15 +9,17 @@ public class EventWrapper<T> where T : EventBase, new() {
         StreamId = string.Empty;
         Version = 0;
         EventType = string.Empty;
+        Domain = string.Empty;
         Timestamp = 0;
         Payload = new T();
     }
 
-    public EventWrapper(string streamId, string eventType, T payload, long timeStamp, long version) {
+    public EventWrapper(string streamId, string eventType, T payload, string domain, long timeStamp, long version) {
         Id =  $"{streamId}:{version}";
         StreamId = streamId;
         Version = version;
         EventType = eventType;
+        Domain = domain;
         Timestamp = timeStamp;
         Payload = payload;
     }
@@ -27,6 +29,7 @@ public class EventWrapper<T> where T : EventBase, new() {
     public string EventType { get; init; }
     public T Payload { get; init; }
     public long Timestamp { get; init; }
+    public string Domain { get; init; }
     public long Version { get; init; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]

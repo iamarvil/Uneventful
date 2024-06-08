@@ -4,13 +4,18 @@ using Uneventful.EventStore.Exceptions;
 namespace Uneventful.EventStore.InMemory;
 
 public class InMemoryEventStore : IEventStore {
+    private readonly string _domain;
     public readonly Dictionary<string, Dictionary<string, EventWrapper<EventBase>>> EventStore = new ();
     public readonly List<EventWrapper<EventBase>> Events = [];
+
+    public InMemoryEventStore(string domain) {
+        _domain = domain;
+    }
     
     public Task<long> AppendToStream(string streamId, EventBase @event, long expectedVersion, EventMetaData? metaData = null, CancellationToken cancellationToken = default) {
         var newVersion = expectedVersion + 1;
         if (!EventStore.ContainsKey(streamId)) EventStore[streamId] = new Dictionary<string, EventWrapper<EventBase>>();
-        var wrapper = new EventWrapper<EventBase>(streamId, @event.GetType().Name, @event, DateTimeOffset.Now.ToUnixTimeSeconds(), newVersion) {
+        var wrapper = new EventWrapper<EventBase>(streamId, @event.GetType().Name, @event, _domain, DateTimeOffset.Now.ToUnixTimeSeconds(), newVersion) {
             MetaData = metaData
         };
 
@@ -34,7 +39,7 @@ public class InMemoryEventStore : IEventStore {
         foreach (var @event in events) {
             if (!EventStore.ContainsKey(streamId)) EventStore[streamId] = new Dictionary<string, EventWrapper<EventBase>>();
             newVersion += 1;
-            var wrapper = new EventWrapper<EventBase>(streamId, @event.GetType().Name, @event, DateTimeOffset.Now.ToUnixTimeSeconds(), newVersion);
+            var wrapper = new EventWrapper<EventBase>(streamId, @event.GetType().Name, @event, _domain, DateTimeOffset.Now.ToUnixTimeSeconds(), newVersion);
             EventStore[streamId][wrapper.Id] = wrapper;
             Events.Add(wrapper);
         }

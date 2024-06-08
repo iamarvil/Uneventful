@@ -29,9 +29,9 @@ public class TodoProjectorTests {
         var id = Guid.NewGuid();
         
         await _projector.ProcessAsync([
-            new EventWrapper<EventBase>($"todo:{id}",nameof(TodoItemCreated), new TodoItemCreated(id, "Test Todo", 1), 1, 1),
+            new EventWrapper<EventBase>($"todo:{id}",nameof(TodoItemCreated), new TodoItemCreated(id, "Test Todo", 1), "todo", 1, 1),
             // doubling for idempotency check
-            new EventWrapper<EventBase>($"todo:{id}",nameof(TodoItemCreated), new TodoItemCreated(id, "Test Todo", 1), 1, 1)
+            new EventWrapper<EventBase>($"todo:{id}",nameof(TodoItemCreated), new TodoItemCreated(id, "Test Todo", 1), "todo", 1, 1)
         ]);
         
         Assert.Single(_appState.TodoItems);
@@ -46,9 +46,9 @@ public class TodoProjectorTests {
         _appState.Add(new TodoItem(id, "Test Todo", 1));
         
         await _projector.ProcessAsync([
-            new EventWrapper<EventBase>($"todo:{id}",nameof(TodoItemTitleChanged), new TodoItemTitleChanged(id, "Test Todo 2", 2), 2, 2),
+            new EventWrapper<EventBase>($"todo:{id}",nameof(TodoItemTitleChanged), new TodoItemTitleChanged(id, "Test Todo 2", 2), "todo", 2, 2),
             // doubling for idempotency check
-            new EventWrapper<EventBase>($"todo:{id}",nameof(TodoItemTitleChanged), new TodoItemTitleChanged(id, "Test Todo 2", 2), 2, 2)
+            new EventWrapper<EventBase>($"todo:{id}",nameof(TodoItemTitleChanged), new TodoItemTitleChanged(id, "Test Todo 2", 2), "todo", 2, 2)
         ]);
         
         Assert.Single(_appState.TodoItems);
@@ -63,9 +63,9 @@ public class TodoProjectorTests {
         _appState.Add(new TodoItem(id, "Test Todo", 1));
         
         await _projector.ProcessAsync([
-            new EventWrapper<EventBase>($"todo:{id}",nameof(TodoItemCompleted), new TodoItemCompleted(id, 2), 2, 2),
+            new EventWrapper<EventBase>($"todo:{id}",nameof(TodoItemCompleted), new TodoItemCompleted(id, 2), "todo", 2, 2),
             // doubling for idempotency check
-            new EventWrapper<EventBase>($"todo:{id}",nameof(TodoItemCompleted), new TodoItemCompleted(id, 2), 2, 2),
+            new EventWrapper<EventBase>($"todo:{id}",nameof(TodoItemCompleted), new TodoItemCompleted(id, 2), "todo", 2, 2),
         ]);
         
         Assert.Single(_appState.TodoItems);
@@ -81,9 +81,9 @@ public class TodoProjectorTests {
         _appState.Complete(id, 1);
         
         await _projector.ProcessAsync([
-            new EventWrapper<EventBase>($"todo:{id}",nameof(TodoItemUnCompleted), new TodoItemUnCompleted(id, 2), 2, 2),
+            new EventWrapper<EventBase>($"todo:{id}",nameof(TodoItemUnCompleted), new TodoItemUnCompleted(id, 2), "todo", 2, 2),
             // doubling for idempotency check
-            new EventWrapper<EventBase>($"todo:{id}",nameof(TodoItemUnCompleted), new TodoItemUnCompleted(id, 2), 2, 2)
+            new EventWrapper<EventBase>($"todo:{id}",nameof(TodoItemUnCompleted), new TodoItemUnCompleted(id, 2), "todo", 2, 2)
         ]);
         
         Assert.Single(_appState.TodoItems);
@@ -98,9 +98,9 @@ public class TodoProjectorTests {
         _appState.Add(new TodoItem(id, "Test Todo", 1));
         
         await _projector.ProcessAsync([
-            new EventWrapper<EventBase>($"todo:{id}",nameof(TodoItemRemoved), new TodoItemRemoved(id, 2), 2, 2),
+            new EventWrapper<EventBase>($"todo:{id}",nameof(TodoItemRemoved), new TodoItemRemoved(id, 2), "todo", 2, 2),
             // doubling for idempotency check
-            new EventWrapper<EventBase>($"todo:{id}",nameof(TodoItemRemoved), new TodoItemRemoved(id, 2), 2, 2)
+            new EventWrapper<EventBase>($"todo:{id}",nameof(TodoItemRemoved), new TodoItemRemoved(id, 2), "todo", 2, 2)
         ]);
         
         Assert.Empty(_appState.TodoItems);

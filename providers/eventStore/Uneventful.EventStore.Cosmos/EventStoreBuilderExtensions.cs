@@ -8,7 +8,12 @@ namespace Uneventful.EventStore.Cosmos;
 public static class EventStoreBuilderExtensions {
     
     public static EventStoreBuilder UseCosmos(this EventStoreBuilder builder, CosmosClientBuilder clientBuilder, string databaseName, string containerName) {
-        builder.JsonSerializerOptions.Converters.Add(new EventWrapperConverter(builder.RegisteredEventTypes, timestampPropertyName: "_ts"));
+        var converter = new EventWrapperConverter(timestampPropertyName: "_ts");
+        
+        if (builder.Domain == null) throw new InvalidOperationException("Domain must be set on the EventStoreBuilder");
+        
+        converter.RegisterDomainEvents(builder.Domain, builder.RegisteredEventTypes[builder.Domain]);
+        builder.JsonSerializerOptions.Converters.Add(converter);
         
         var serializer = new CosmosEventWrapperSerializer(builder.JsonSerializerOptions);
         
@@ -16,7 +21,7 @@ public static class EventStoreBuilderExtensions {
             var client = clientBuilder
                 .WithCustomSerializer(serializer)
                 .Build();
-            return new CosmosEventStore(client, databaseName, containerName);
+            return new CosmosEventStore(client, databaseName, containerName, builder.Domain);
         });
     }
     

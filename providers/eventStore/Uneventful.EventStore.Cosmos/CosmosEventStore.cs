@@ -10,12 +10,14 @@ public class CosmosEventStore : IEventStore, IDisposable {
         EnableContentResponseOnWrite = false,
     };
     private readonly CosmosClient _client;
+    private readonly string _domain;
     private readonly Container _container;
 
     public CosmosClient Client => _client;
     
-    internal CosmosEventStore(CosmosClient client, string databaseName, string containerName) {
+    internal CosmosEventStore(CosmosClient client, string databaseName, string containerName, string domain) {
         _client = client;
+        _domain = domain;
         _container = client.GetContainer(databaseName, containerName);
     }
 
@@ -26,6 +28,7 @@ public class CosmosEventStore : IEventStore, IDisposable {
                 streamId,
                 @event.GetType().Name,
                 @event,
+                _domain,
                 DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
                 newVersion
             ) {
@@ -64,6 +67,7 @@ public class CosmosEventStore : IEventStore, IDisposable {
                     streamId,
                     @event.GetType().Name,
                     @event,
+                    _domain,
                     DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
                     ++newVersion
                 ) {

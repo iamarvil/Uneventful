@@ -2,7 +2,8 @@
 
 public static class EventStoreBuilderExtensions {
     public static EventStoreBuilder UseInMemory(this EventStoreBuilder builder) {
-        builder.UseEventStore(() => new InMemoryEventStore());
+        if (builder.Domain == null) throw new InvalidOperationException("Domain must be set on the EventStoreBuilder");
+        builder.UseEventStore(() => new InMemoryEventStore(builder.Domain));
         return builder;
     }
 }
