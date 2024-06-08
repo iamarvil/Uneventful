@@ -6,6 +6,15 @@
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
         <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+        <Title>Uneventful.CodeGenerator</Title>
+        <Authors>iamarvil</Authors>
+        <Description>Code Generator to be used with Unevenful.EventStore for autoamtically generating Event Registry</Description>
+        <PackageProjectUrl>https://github.com/iamarvil/Uneventful</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/iamarvil/Uneventful</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageTags>eventsourcing</PackageTags>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>

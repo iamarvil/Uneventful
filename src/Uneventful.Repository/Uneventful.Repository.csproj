@@ -4,6 +4,15 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <Title>Uneventful.Repository</Title>
+        <Authors>iamarvil</Authors>
+        <Description>The Aggregate Repository that loads the stream into an Aggregate Root from an Uneventful EventStore provider</Description>
+        <PackageProjectUrl>https://github.com/iamarvil/Uneventful</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/iamarvil/Uneventful</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageTags>eventsourcing</PackageTags>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>

@@ -122,9 +122,10 @@ public abstract class EventProcessorBase {
     /// </summary>
     /// <param name="eventWrappers"></param>
     /// <param name="cancellationToken"></param>
-    public virtual async Task ProcessAsync(IEnumerable<EventWrapper<EventBase>> eventWrappers, CancellationToken cancellationToken = default) {
-        foreach (var eventWrapper in eventWrappers.Where(x => _eventTypes.Contains(x.EventType))) {
+    public virtual async Task ProcessAsync(IEnumerable<EventWrapper<EventBase>?> eventWrappers, CancellationToken cancellationToken = default) {
+        foreach (var eventWrapper in eventWrappers.Where(x => x!= null && _eventTypes.Contains(x.EventType))) {
             try {
+                if (eventWrapper == null) continue;
                 if (_asyncEventHandlers.ContainsKey(eventWrapper.EventType)) await ApplyAsync(eventWrapper, cancellationToken);
                 else if (_eventHandlers.ContainsKey(eventWrapper.EventType)) Apply(eventWrapper);
             } catch (Exception ex) {
